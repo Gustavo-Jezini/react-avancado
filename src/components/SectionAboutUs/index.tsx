@@ -6,18 +6,20 @@ import ProfileCard from 'components/ProfileCard'
 
 import content from './content'
 import * as S from './styles'
+import { AboutUsProps } from 'types/api'
+import { getImageUrl } from 'utils/getImageUrl'
 
-const SectionAboutUs = () => (
+const SectionAboutUs = ({title, authors}: AboutUsProps) => (
   <Container>
-    <Heading reverseColor>Quem somos nós?</Heading>
+    <Heading reverseColor>{title}</Heading>
 
     <S.Content>
-      {content.map((profile) => (
+      {authors.data.map(({attributes: profile}) => (
         <ProfileCard
           key={profile.name}
           name={profile.name}
           role={profile.role}
-          image={profile.image}
+          photo={getImageUrl(profile.photo.data.attributes.url)}
           socialLinks={profile.socialLinks}
           description={profile.description}
         />
